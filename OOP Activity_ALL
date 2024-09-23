@@ -1,0 +1,67 @@
+using System;
+class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Enter the teacher's name: ");
+        string teacherName = Console.ReadLine();
+        Console.Write("Enter the teacher's age: ");
+        int teacherAge = Convert.ToInt32(Console.ReadLine());
+        Console.Write("How many pupils does the teacher have? ");
+        int numPupils = Convert.ToInt32(Console.ReadLine());
+
+        Teacher teacher = new Teacher(teacherName, teacherAge);
+        Pupil pupilGroup = new Pupil(teacher, numPupils);
+        pupilGroup.EnterPupilDetails();
+
+        Console.WriteLine();
+        teacher.DisplayTeacherInfo();
+        pupilGroup.DisplayPupilNames();
+    }
+}
+class Teacher
+{//properties
+    public string TeacherName { get;  set; }
+    public int TeacherAge { get;  set; } //read only
+    public Teacher(string name, int age)
+    {
+        TeacherName = name;
+        TeacherAge = age;
+    }
+    public void DisplayTeacherInfo()
+    {
+     Console.WriteLine($"Teacher: {TeacherName}, Age: {TeacherAge}");
+    }
+}
+class Pupil
+{
+    private string[] pupilNames;
+    private int[] pupilAges;
+    private string[] pupilGenders;
+    public Pupil(Teacher teacher, int numberOfPupils)
+    {
+        pupilNames = new string[numberOfPupils];
+        pupilAges = new int[numberOfPupils];
+        pupilGenders = new string[numberOfPupils];
+    }
+    public void EnterPupilDetails()
+    {
+        for (int i = 0; i < pupilNames.Length; i++)
+        {
+            Console.Write($"Enter the name of pupil {i + 1}: ");
+            pupilNames[i] = Console.ReadLine();
+            Console.Write("Enter pupil's gender: ");
+            pupilGenders[i] = Console.ReadLine();
+            Console.Write("Enter pupil's age: ");
+            pupilAges[i] = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+    public void DisplayPupilNames()
+    {
+        Console.WriteLine("\nList of pupils:");
+        for (int i = 0; i < pupilNames.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. Name: {pupilNames[i]}, Age: {pupilAges[i]}, Gender: {pupilGenders[i]}");
+        }
+    }
+}
